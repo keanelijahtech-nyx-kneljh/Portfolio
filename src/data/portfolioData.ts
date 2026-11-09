@@ -27,15 +27,15 @@ export interface Project {
 }
 
 export const PORTFOLIO_INFO = {
-  name: "Kean Elijah Janaban",
+  name: "KeanElijah.tech",
   role: "AI Automation Developer",
   tagline: "Workflow Automation · Vibe-Coded Applications",
   heroLabel: "AI AUTOMATION DEVELOPER",
   headlineWhite: "Less Manual Work.",
   headlineOrange: "More Intelligent Growth.",
-  bio: "I’m Kean Elijah Janaban. I build practical AI automations and lightweight applications that streamline workflows, reduce repetitive tasks, and help businesses work smarter.",
+  bio: "I’m KeanElijah.tech. I build practical AI automations and lightweight applications that streamline workflows, reduce repetitive tasks, and help businesses work smarter.",
   aboutHeading: "I build systems that make work simpler.",
-  aboutIntro: "I’m Kean Elijah Janaban, an aspiring AI Automation Developer interested in solving everyday business problems through automation and practical software. I focus on connecting tools, reducing repetitive manual work, and creating workflows that are easier to manage and maintain.",
+  aboutIntro: "I’m KeanElijah.tech, an AI Automation Developer building practical business automations and software. I focus on connecting tools, reducing repetitive manual work, and creating workflows that are easier to manage and maintain.",
   credibilityLabels: [
     "AI-Powered Workflows",
     "Business Process Automation",
@@ -72,6 +72,8 @@ export const TECHNOLOGIES = [
   { name: "Google Sheets", category: "Data", note: "Central records & dynamic queues" },
   { name: "Google Apps Script", category: "Scripting", note: "Custom triggers & spreadsheet events" },
   { name: "Gmail", category: "Communication", note: "Automated routing & notification alerts" },
+  { name: "Slack", category: "Communication", note: "Channel alerts & message automation" },
+  { name: "WhatsApp Business Cloud", category: "Communication", note: "Instant mobile alerts & messaging" },
   { name: "Typeform", category: "Intake", note: "Structured form responses & intake" },
   { name: "monday.com", category: "CRM / Ops", note: "Item creation & board automation" },
   { name: "Airtable", category: "Data", note: "Relational data tables & views" },
@@ -132,54 +134,55 @@ export const AUTOMATION_PROJECTS: Project[] = [
     }
   },
   {
-    id: "vessel-calendar-monitor",
-    title: "Google Sheets Vessel Calendar Change Monitor",
-    subtitle: "Real-time state diffing via Apps Script with Make.com webhook routing",
+    id: "calendar-monitor-alert-system",
+    title: "Calendar Monitor and Alert system",
+    subtitle: "Real-time calendar change detection with multi-channel Gmail, Slack & WhatsApp alerts",
     category: "Workflow Automation",
     status: "Completed",
-    shortDescription: "A spreadsheet monitoring workflow designed to detect vessel calendar changes, record relevant events, and support notifications when monitored information changes.",
-    problemSolved: "Changes to a shared vessel calendar can be difficult to track manually, especially when critical additions, deletions, or date shifts need to be identified and communicated promptly.",
-    solution: "Combines custom Google Apps Script to compare spreadsheet states upon edits and fire structured webhook payloads, with Make.com routing events into distinct deletion and addition alert channels via Gmail.",
-    image: "/assets/aistudio/Screenshot_2026-10-22_102302_53b861c8.png",
-    imageAlt: "Make.com scenario diagram for Vessel Calendar Change Alerts",
-    imageCaption: "Live Make.com Scenario: Custom Webhook listener → Decision Router → Gmail Deletion Alert & Addition Alert branches",
-    tools: ["Google Sheets", "Google Apps Script", "Make.com", "Webhooks", "Gmail"],
+    shortDescription: "An automated calendar change detection workflow that captures spreadsheet updates and instantly routes notifications across Gmail, Slack, and WhatsApp Business Cloud.",
+    problemSolved: "Manual monitoring of shared schedules and calendars leads to missed updates, communication lags, and team misalignment when additions, deletions, or reschedules occur.",
+    solution: "Combines Google Apps Script event diffing with a Make.com webhook and multi-path decision router, instantly firing targeted alerts across Gmail email, Slack team channels, and WhatsApp mobile messages.",
+    image: "/assets/aistudio/image_f82b950a.png",
+    imageAlt: "Make.com scenario diagram for Calendar Monitor and Alert system",
+    imageCaption: "Live Make.com Scenario: Custom Webhook listener → 4-Way Decision Router → Multi-channel Gmail, Slack & WhatsApp Business Cloud alerts",
+    tools: ["Make.com", "Google Sheets", "Google Apps Script", "Webhooks", "Gmail", "Slack", "WhatsApp Business Cloud"],
     workflowNodes: [
       "Google Apps Script (onEdit / onChange state comparison)",
       "Make.com Webhook (Custom webhook receiver)",
-      "Router (1st: Deletion Alert / 2nd: Addition Alert)",
-      "Gmail (Send Deletion Alert email)",
-      "Gmail (Send Addition Alert email)"
+      "Router (1st: Deletion Alert / 2nd: Addition Alert / 3rd & 4th: Priority alerts)",
+      "Gmail (Send email alert)",
+      "Slack (Send team message)",
+      "WhatsApp Business Cloud (Send instant mobile alert)"
     ],
-    role: "Created the Google Apps Script state tracking algorithm, structured the JSON webhook payload format, configured the Make.com webhook endpoint, and mapped email alert templates.",
+    role: "Created the Google Apps Script state tracking algorithm, structured the JSON webhook payload format, configured the Make.com webhook endpoint, and mapped email, Slack, and WhatsApp alert templates.",
     challenges: [
-      "Google Sheets does not natively emit specific 'row deleted' events; designed an Apps Script shadow-cache comparison to calculate exact row removals.",
-      "Handling batch edits without creating webhook throttling or email flooding.",
-      "Parsing multi-column vessel schedule data into concise email alerts."
+      "Detecting row additions versus deletions reliably in Google Sheets without polling overhead.",
+      "Formatting notification payloads cleanly across differing channel constraints (rich HTML for Gmail, message blocks for Slack, and direct templates for WhatsApp).",
+      "Handling rapid batch schedule changes without webhook throttling or alert spam."
     ],
     outcomes: [
-      "Immediate operational awareness when vessel schedules are altered or removed.",
-      "Clear separation of addition versus deletion events for port coordinators.",
-      "22+ real records queued and verified through Make.com execution pipelines."
+      "Instant multi-channel operational visibility when schedules are modified or entries deleted.",
+      "Direct delivery to field and office staff via their preferred channels (Gmail, Slack, and WhatsApp).",
+      "Robust execution pipeline verified with live execution traces in Make.com."
     ],
     futureImprovements: [
-      "Add direct Slack or Telegram channel alerts for field operations.",
+      "Add interactive Slack buttons to confirm or acknowledge schedule changes.",
       "Implement a daily summary digest for minor non-critical time adjustments.",
-      "Add automatic confirmation reply tracking from port agents."
+      "Add automated two-way response logging back into Google Sheets."
     ],
     caseStudyDetails: {
-      architectureSummary: "Hybrid architecture utilizing Google Apps Script triggers on Google Sheets to capture schedule mutations, dispatching instant JSON payloads to a Make.com Custom Webhook listener for multi-path email distribution.",
+      architectureSummary: "Hybrid event-driven architecture pairing Google Apps Script sheet-mutation triggers with a Make.com Custom Webhook and multi-path router to broadcast notifications via Gmail, Slack, and WhatsApp Business Cloud.",
       triggerType: "Instant Webhook trigger fired by Google Apps Script",
       dataFlow: [
-        "Port operator edits or removes a vessel entry in Google Sheets",
-        "Apps Script calculates delta between previous snapshot and current state",
-        "Apps Script dispatches HTTP POST payload to Make.com Webhook URL",
-        "Make.com parses event type ('Addition' vs 'Deletion')",
-        "Router directs payload down the corresponding alert channel",
-        "Gmail sends structured vessel notification to dispatch list"
+        "User or system updates, adds, or deletes an entry on the calendar sheet",
+        "Google Apps Script detects the change delta and dispatches a JSON payload to Make.com",
+        "Make.com Custom Webhook receives and validates the event data",
+        "Decision Router evaluates the action type (Addition Alert, Deletion Alert, or Priority Alert)",
+        "Branch 1 & 2: Dispatches formatted emails via Gmail and synchronized messages to Slack channels",
+        "Branch 3 & 4: Transmits instant mobile alert notifications via WhatsApp Business Cloud"
       ],
-      testedFunctionality: "Tested and validated with queue management in Make.com (queue showing active records waiting).",
-      notes: "Designed for maritime logistics and calendar tracking operations."
+      testedFunctionality: "Tested and validated with live execution in Make.com scenario diagram.",
+      notes: "Real-time multi-channel notification engine integrating email, team chat, and mobile messaging."
     }
   },
   {

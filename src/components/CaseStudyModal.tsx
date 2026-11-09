@@ -282,7 +282,7 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({
         {/* Modal Bottom Footer */}
         <div className="px-6 py-4 bg-[#14171C] border-t border-[#333942] flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div className="text-xs text-[#8B949E] font-mono">
-            {project.caseStudyDetails.notes || 'Documented by Kean Elijah Janaban'}
+            {project.caseStudyDetails.notes || 'Documented by KeanElijah.tech'}
           </div>
           <div className="flex items-center gap-2">
             <button
