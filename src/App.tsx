@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { MotionConfig } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { TechnologyStrip } from './components/TechnologyStrip';
-import { AboutSection } from './components/AboutSection';
+import { ServicesSection } from './components/ServicesSection';
 import { ProjectsSection } from './components/ProjectsSection';
-import { VibeCodedSection } from './components/VibeCodedSection';
-import { SkillsSection } from './components/SkillsSection';
+import { AboutSection } from './components/AboutSection';
+import { ToolsSection } from './components/ToolsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CaseStudyModal } from './components/CaseStudyModal';
@@ -35,59 +35,44 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1F2328] text-[#F5F5F3] flex flex-col font-sans selection:bg-[#FA5428] selection:text-white">
-      {/* Navigation Bar */}
-      <Navbar onOpenContact={handleOpenContact} />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-[#14171A] text-[#F5F5F3] flex flex-col font-sans selection:bg-[#FA5428] selection:text-white">
+        <Navbar />
 
-      {/* Main Content Area */}
-      <main className="flex-1">
-        {/* Hero Section */}
-        <Hero
-          onOpenContact={handleOpenContact}
-          onExploreProjects={handleExploreProjects}
-        />
+        <main className="flex-1">
+          <Hero
+            onOpenContact={handleOpenContact}
+            onExploreProjects={handleExploreProjects}
+          />
 
-        {/* Technology Logo / Tools Strip */}
-        <TechnologyStrip />
+          <ServicesSection />
 
-        {/* About Me Section */}
-        <AboutSection />
+          <ProjectsSection
+            onSelectProject={setSelectedProject}
+            onPreviewImage={handlePreviewImage}
+          />
 
-        {/* Automation Projects (3 Dedicated Make.com Scenarios) */}
-        <ProjectsSection
-          onSelectProject={setSelectedProject}
+          <AboutSection />
+
+          <ToolsSection />
+
+          <ContactSection />
+        </main>
+
+        <Footer />
+
+        <CaseStudyModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
           onPreviewImage={handlePreviewImage}
         />
 
-        {/* Separate Vibe-Coded Apps & Websites Section (Google Tasks Kanban) */}
-        <VibeCodedSection
-          onSelectProject={setSelectedProject}
-          onPreviewImage={handlePreviewImage}
+        <ImageViewerModal
+          image={previewImage ? previewImage.image : null}
+          title={previewImage ? previewImage.title : null}
+          onClose={() => setPreviewImage(null)}
         />
-
-        {/* Skills Section */}
-        <SkillsSection />
-
-        {/* Contact / Let's Connect Section */}
-        <ContactSection />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Full-Detail Case Study Modal */}
-      <CaseStudyModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onPreviewImage={handlePreviewImage}
-      />
-
-      {/* High-Resolution Workflow Image Viewer Modal */}
-      <ImageViewerModal
-        image={previewImage ? previewImage.image : null}
-        title={previewImage ? previewImage.title : null}
-        onClose={() => setPreviewImage(null)}
-      />
-    </div>
+      </div>
+    </MotionConfig>
   );
 }

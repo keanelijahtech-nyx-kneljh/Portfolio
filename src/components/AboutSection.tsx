@@ -1,75 +1,50 @@
 import React from 'react';
-import { Workflow, Cpu, Layers } from 'lucide-react';
+import { motion } from 'motion/react';
 import { PORTFOLIO_INFO } from '../data/portfolioData';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="py-20 lg:py-24 bg-[#1B1F24] border-b border-[#333942]/60 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="max-w-3xl mb-12">
-          <span className="text-xs font-mono font-medium tracking-widest text-[#FA5428] uppercase mb-2.5 block">
-            ABOUT MY WORK
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            {PORTFOLIO_INFO.aboutHeading}
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#B4BAC2] leading-relaxed">
-            {PORTFOLIO_INFO.aboutIntro}
-          </p>
-        </div>
+    <section id="about" className="py-20 lg:py-24 bg-[#181B20] border-t border-[#242931]">
+      <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start"
+        >
+          {/* Left Column: Biography */}
+          <div className="lg:col-span-7">
+            <p className="text-xs font-medium tracking-wider uppercase text-[#FA5428] mb-2">
+              About
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#F5F5F3] tracking-tight leading-snug mb-6 text-balance">
+              {PORTFOLIO_INFO.aboutHeading}
+            </h2>
 
-        {/* 3 Core Focus Areas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Card 1: Workflow Automation */}
-          <div className="bg-[#15181C] border border-[#333942] rounded-xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="w-11 h-11 rounded-lg bg-[#FA5428]/10 border border-[#FA5428]/25 flex items-center justify-center text-[#FA5428] mb-5">
-                <Workflow className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2.5 tracking-tight">
-                Workflow Automation
-              </h3>
-              <p className="text-sm text-[#B4BAC2] leading-relaxed">
-                Connecting applications and automating repetitive processes. Designing resilient scenarios in Make.com and Google Apps Script that eliminate manual data entry, event tracking, and handoff delays.
-              </p>
+            <div className="space-y-4 text-sm sm:text-base text-[#A1A8B3] leading-relaxed">
+              {PORTFOLIO_INFO.aboutParagraphs.map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
             </div>
           </div>
 
-          {/* Card 2: AI Integration */}
-          <div className="bg-[#15181C] border border-[#333942] rounded-xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="w-11 h-11 rounded-lg bg-[#FA5428]/10 border border-[#FA5428]/25 flex items-center justify-center text-[#FA5428] mb-5">
-                <Cpu className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2.5 tracking-tight">
-                AI Integration
-              </h3>
-              <p className="text-sm text-[#B4BAC2] leading-relaxed">
-                Using AI to support data processing, classification, and decision-making where appropriate. Crafting structured prompts that transform unstructured inquiries into clean, deterministic data for downstream logic.
-              </p>
-            </div>
+          {/* Right Column: Clean Hairline Credentials List */}
+          <div className="lg:col-span-5">
+            <dl className="divide-y divide-[#262C34] border-y border-[#262C34]">
+              {PORTFOLIO_INFO.credentials.map((item) => (
+                <div key={item.label} className="py-3.5 flex items-baseline justify-between gap-4">
+                  <dt className="text-xs font-medium text-[#9CA3AF] shrink-0">
+                    {item.label}
+                  </dt>
+                  <dd className="text-sm font-medium text-[#F5F5F3] text-right">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
-
-          {/* Card 3: Application Prototyping */}
-          <div className="bg-[#15181C] border border-[#333942] rounded-xl p-6 sm:p-7 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="w-11 h-11 rounded-lg bg-[#FA5428]/10 border border-[#FA5428]/25 flex items-center justify-center text-[#FA5428] mb-5">
-                <Layers className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2.5 tracking-tight">
-                Application Prototyping
-              </h3>
-              <p className="text-sm text-[#B4BAC2] leading-relaxed">
-                Building useful web applications and interfaces with modern development tools. Creating functional prototypes like task boards that pair backend automations with intuitive, responsive user experiences.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

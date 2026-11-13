@@ -1,330 +1,443 @@
+export type ProjectFilterGroup = 'Automation' | 'Applications';
+
 export interface Project {
   id: string;
   title: string;
   subtitle: string;
+  filterGroup: ProjectFilterGroup;
   category: 'AI Automation' | 'Workflow Automation' | 'Business Process Automation' | 'Vibe-Coded Application';
   status: 'Completed' | 'In Progress' | 'Prototype';
+  projectTypeNote: string;
   shortDescription: string;
   problemSolved: string;
   solution: string;
   image: string;
   imageAlt: string;
-  imageCaption?: string;
+  imageCaption: string;
   tools: string[];
-  workflowNodes?: string[];
+  workflowNodes: string[];
+  keyFeatures: string[];
   role: string;
   challenges: string[];
-  outcomes: string[];
   futureImprovements: string[];
+  hasInteractiveDemo?: boolean;
   caseStudyDetails: {
+    overview: string;
     architectureSummary: string;
     triggerType: string;
     dataFlow: string[];
     testedFunctionality: string;
-    notes?: string;
+    outcomeValue: string;
   };
-  demoUrl?: string;
+}
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  description: string;
+  highlights: string[];
+  iconName: 'workflow' | 'ai' | 'leads' | 'app';
+}
+
+export type AccuracyLevel = 'Hands-on' | 'Familiar' | 'Exploring';
+
+export interface TechItem {
+  name: string;
+  level: AccuracyLevel;
+  kind: string;
+  brandKey?: string;
+}
+
+export interface TechCategory {
+  id: string;
+  title: string;
+  subtitle: string;
+  items: TechItem[];
 }
 
 export const PORTFOLIO_INFO = {
-  name: "KeanElijah.tech",
-  role: "AI Automation Developer",
-  tagline: "Workflow Automation · Vibe-Coded Applications",
-  heroLabel: "AI AUTOMATION DEVELOPER",
-  headlineWhite: "Less Manual Work.",
-  headlineOrange: "More Intelligent Growth.",
-  bio: "I’m KeanElijah.tech. I build practical AI automations and lightweight applications that streamline workflows, reduce repetitive tasks, and help businesses work smarter.",
-  aboutHeading: "I build systems that make work simpler.",
-  aboutIntro: "I’m KeanElijah.tech, an AI Automation Developer building practical business automations and software. I focus on connecting tools, reducing repetitive manual work, and creating workflows that are easier to manage and maintain.",
-  credibilityLabels: [
-    "AI-Powered Workflows",
-    "Business Process Automation",
-    "Practical Application Development"
+  brandName: "KeanElijah.tech",
+  fullName: "Kean Elijah",
+  role: "AI Automation & Workflow Specialist",
+  headline: "I Build Smarter Workflows Through AI & Automation.",
+  bio: "I help simplify repetitive business processes through practical automation, AI integrations, and lightweight applications.",
+  credibilityLine: "BS Information Technology · Cum Laude",
+  aboutHeading: "Practical automation backed by an IT foundation.",
+  aboutParagraphs: [
+    "I'm a Bachelor of Science in Information Technology graduate from West Visayas State University.",
+    "I have a strong interest in AI automation, workflow optimization, and practical software solutions. I enjoy exploring how technology can simplify repetitive tasks, organize information, and improve everyday business operations.",
+    "Through independent projects and hands-on experimentation, I continue developing my ability to build useful digital solutions."
   ],
-  focusAreas: [
-    {
-      title: "Workflow Automation",
-      description: "Connecting disparate applications and eliminating repetitive manual handoffs across spreadsheets, forms, and email.",
-      icon: "workflow"
-    },
-    {
-      title: "AI Integration",
-      description: "Using AI models to support data extraction, lead categorization, and intelligent decision routing without unnecessary complexity.",
-      icon: "ai"
-    },
-    {
-      title: "Application Prototyping",
-      description: "Building responsive, useful web interfaces and productivity tools that connect directly to daily business systems.",
-      icon: "code"
-    }
+  credentials: [
+    { label: "Degree", value: "BS Information Technology" },
+    { label: "Distinction", value: "Cum Laude" },
+    { label: "University", value: "West Visayas State University" },
+    { label: "Location", value: "Iloilo City, Philippines" },
+    { label: "Focus", value: "AI Automation & Workflow Systems" }
   ],
   email: "keanelijah.tech@gmail.com",
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  location: "Open to Remote & Global Opportunities",
-  availability: "Available for Automation Projects & Junior Roles"
+  linkedin: "https://www.linkedin.com/in/kneljh-tech/",
+  availability: "Open to automation projects, remote roles, and entry-level opportunities."
 };
 
-export const TECHNOLOGIES = [
-  { name: "Make.com", category: "Automation", note: "Scenario orchestration & routers" },
-  { name: "OpenAI", category: "AI", note: "Prompt engineering & extraction" },
-  { name: "Google Gemini AI", category: "AI", note: "Context processing & response generation" },
-  { name: "Google Sheets", category: "Data", note: "Central records & dynamic queues" },
-  { name: "Google Apps Script", category: "Scripting", note: "Custom triggers & spreadsheet events" },
-  { name: "Gmail", category: "Communication", note: "Automated routing & notification alerts" },
-  { name: "Slack", category: "Communication", note: "Channel alerts & message automation" },
-  { name: "WhatsApp Business Cloud", category: "Communication", note: "Instant mobile alerts & messaging" },
-  { name: "Typeform", category: "Intake", note: "Structured form responses & intake" },
-  { name: "monday.com", category: "CRM / Ops", note: "Item creation & board automation" },
-  { name: "Airtable", category: "Data", note: "Relational data tables & views" },
-  { name: "JavaScript", category: "Code", note: "Custom scripts, webhooks & prototyping" },
+export const SERVICES_DATA: ServiceItem[] = [
+  {
+    id: "workflow-automation",
+    title: "Workflow Automation",
+    description:
+      "Connect everyday apps via Make.com and webhooks to automate repetitive manual tasks.",
+    highlights: [],
+    iconName: "workflow"
+  },
+  {
+    id: "ai-integration",
+    title: "AI Integration",
+    description:
+      "Embed AI models into workflows for consistent lead triage, classification, and summaries.",
+    highlights: [],
+    iconName: "ai"
+  },
+  {
+    id: "lead-capture",
+    title: "CRM & Lead Management",
+    description:
+      "Organize inquiries and automate follow-ups across HubSpot CRM, sheets, and messaging.",
+    highlights: [],
+    iconName: "leads"
+  },
+  {
+    id: "lightweight-apps",
+    title: "Lightweight Application Development",
+    description:
+      "Build clean React and TypeScript interfaces and focused internal tools ready for APIs.",
+    highlights: [],
+    iconName: "app"
+  }
 ];
 
-export const AUTOMATION_PROJECTS: Project[] = [
+export const FEATURED_PROJECTS: Project[] = [
   {
     id: "lead-qualification",
     title: "AI-Powered Lead Qualification",
-    subtitle: "Automated triage, Gemini evaluation, and branching communication",
+    subtitle: "Automated Google Sheets intake, Gemini AI evaluation, and conditional Gmail routing",
+    filterGroup: "Automation",
     category: "AI Automation",
     status: "Completed",
-    shortDescription: "An AI-powered workflow designed to process incoming lead information, assess relevant details, and help organize leads for more efficient follow-up.",
-    problemSolved: "Manually reviewing and sorting incoming leads takes considerable time, introduces response lag, and results in inconsistent follow-up quality.",
-    solution: "An automated workflow that listens for new spreadsheet rows, passes lead details through a Google Gemini AI analysis node, evaluates criteria via a multi-branch router, and coordinates instant Gmail notifications while logging updated statuses back to Google Sheets.",
+    projectTypeNote: "Independent Practice Project",
+    shortDescription:
+      "Automated an AI lead-triage pipeline in Make.com that monitors Google Sheets for incoming inquiries, evaluates lead details with Google Gemini AI, and routes follow-up emails. By separating submissions into Qualified and Need More Info branches, the workflow reduces manual spreadsheet sorting and keeps inquiry statuses synchronized.",
+    problemSolved:
+      "Teams tracking incoming inquiries in spreadsheets often review each row manually, decide whether an inquiry has enough detail, draft separate follow-up emails by hand, and update status columns individually—creating delays and inconsistent responses.",
+    solution:
+      "Connected Google Sheets, Google Gemini AI, a conditional Make.com Router, and Gmail into a single automated pipeline so every newly logged row is evaluated, routed to the right email sequence, and updated back in the tracking spreadsheet automatically.",
     image: "/assets/aistudio/image_835a73a4.png",
-    imageAlt: "Make.com scenario diagram for AI-Powered Lead Qualification",
-    imageCaption: "Live Make.com Scenario: Google Sheets row trigger → Gemini AI evaluation → Router → Dual Gmail & Sheet update pathways",
-    tools: ["Make.com", "Google Gemini AI", "Google Sheets", "Gmail", "OpenAI"],
+    imageAlt:
+      "Make.com scenario diagram for AI-Powered Lead Qualification showing Google Sheets, Google Gemini AI, Router, and Gmail modules",
+    imageCaption:
+      "Make.com Scenario: Google Sheets Watch New Rows → Google Gemini AI → Router (Qualified / Need more info) → Gmail & Google Sheets Update",
+    tools: ["Make.com", "Google Sheets", "Google Gemini AI", "Gmail"],
     workflowNodes: [
       "Google Sheets (Watch New Rows)",
       "Google Gemini AI (Generate a response)",
-      "Router (1st: Qualified / 2nd: Need more Info)",
-      "Gmail (Send tailored outreach)",
+      "Router (1st: Qualified / 2nd: Need more info)",
+      "Gmail (Send initial tailored email)",
       "Google Sheets (Update a Row status)",
-      "Gmail (Follow-up confirmation)"
+      "Gmail (Send confirmation or follow-up notification)"
     ],
-    role: "Designed the end-to-end scenario architecture, established the prompt criteria for lead scoring, set up router conditional filters, and connected Google Sheets row synchronization.",
+    keyFeatures: [
+      "Polling trigger watching for new lead rows appended to Google Sheets",
+      "AI-assisted lead evaluation powered by Google Gemini AI prompt instructions",
+      "Two-path conditional routing dividing Qualified leads from Need More Info inquiries",
+      "Automated row status updates written back to the source Google Sheet",
+      "Branch-specific Gmail emails covering both prospect communication and follow-up notifications"
+    ],
+    role:
+      "Designed the end-to-end Make.com scenario, authored the Google Gemini prompt instructions for consistent lead categorization, configured the Router filter rules for both branches, and mapped dynamic spreadsheet fields across Gmail and Google Sheets Update modules.",
     challenges: [
-      "Ensuring Gemini generates structured, unambiguous evaluations suitable for router filter conditions.",
-      "Preventing duplicate execution loops when updating the same Google Sheet row.",
-      "Formatting clean HTML email bodies dynamically based on AI response variables."
-    ],
-    outcomes: [
-      "Inbound leads are evaluated and acknowledged in under 60 seconds of entry.",
-      "Clear audit trail maintained in Google Sheets with categorization notes.",
-      "High-priority qualified leads are flagged immediately for rapid representative follow-up."
+      "Structuring Gemini prompt instructions so outputs return predictable classification text that Router filters can evaluate reliably.",
+      "Configuring Google Sheets row updates cleanly without causing duplicate scenario executions on modified rows.",
+      "Mapping dynamic inquiry fields into distinct Gmail message templates for each routing branch."
     ],
     futureImprovements: [
-      "Add CRM webhook sync directly into HubSpot or Salesforce.",
-      "Incorporate phone number validation via Numverify or Twilio.",
-      "Build sentiment scoring on free-form message submissions."
+      "Connect the Qualified branch directly to a CRM pipeline such as HubSpot.",
+      "Parse Gemini responses as structured JSON to support multi-factor lead scoring.",
+      "Add an optional Slack alert when high-priority inquiries arrive."
     ],
     caseStudyDetails: {
-      architectureSummary: "Event-driven scenario triggered by Google Sheets row creation. Passes lead payload through Gemini API prompt module, evaluates lead intent against qualification criteria, and executes conditional branching.",
-      triggerType: "Polling trigger (Watch New Rows) on Google Sheets",
+      overview:
+        "An independent practice workflow built in Make.com to demonstrate how spreadsheet-based lead intake can be combined with AI evaluation and conditional routing to organize early-stage inquiry follow-up.",
+      architectureSummary:
+        "Scheduled polling scenario in Make.com that watches a Google Sheets intake log, sends new lead fields to Google Gemini AI for evaluation, and branches execution through a Router module into separate Gmail and Google Sheets update sequences.",
+      triggerType: "Scheduled polling trigger (Google Sheets — Watch New Rows)",
       dataFlow: [
-        "User fills lead form or row is inserted in Google Sheets",
-        "Make.com catches the row payload (Name, Company, Budget, Needs)",
-        "Prompt sent to Google Gemini AI to analyze fit and classify as 'Qualified' or 'Need more Info'",
-        "Router inspects AI classification tag",
-        "Branch 1 (Qualified): Sends priority alert via Gmail, marks row as Qualified",
-        "Branch 2 (Need More Info): Dispatches clarifying email questionnaire to applicant, updates row status"
+        "A new lead inquiry is added as a row in the tracked Google Sheets spreadsheet.",
+        "Make.com's Google Sheets (Watch New Rows) module detects the new row and forwards the lead fields to Google Gemini AI.",
+        "Google Gemini AI (Generate a response) evaluates the submitted information against qualification criteria.",
+        "A Make.com Router inspects the Gemini classification and selects either the 1st branch (Qualified) or the 2nd branch (Need more info).",
+        "On the Qualified branch, Gmail sends an immediate response email, Google Sheets updates the lead row status, and a second Gmail module dispatches a follow-up notification.",
+        "On the Need more info branch, Gmail sends a clarification request email, Google Sheets updates the row status, and a final Gmail module logs the follow-up."
       ],
-      testedFunctionality: "Fully configured and verified in Make.com scenario diagram with successful execution history.",
-      notes: "Real workflow built and tested in Make.com with live Google Gemini and Gmail modules."
+      testedFunctionality:
+        "Built and tested in Make.com using sample lead entries across Google Sheets, Google Gemini AI, Router, and Gmail modules.",
+      outcomeValue:
+        "Demonstrates a practical, repeatable pattern for small businesses and founders managing leads in Google Sheets—standardizing initial qualification and follow-up emails without manual row-by-row triage."
     }
   },
   {
     id: "calendar-monitor-alert-system",
     title: "Calendar Monitor and Alert system",
-    subtitle: "Real-time calendar change detection with multi-channel Gmail, Slack & WhatsApp alerts",
+    subtitle: "Google Apps Script change detection with Make.com multi-channel webhook routing",
+    filterGroup: "Automation",
     category: "Workflow Automation",
     status: "Completed",
-    shortDescription: "An automated calendar change detection workflow that captures spreadsheet updates and instantly routes notifications across Gmail, Slack, and WhatsApp Business Cloud.",
-    problemSolved: "Manual monitoring of shared schedules and calendars leads to missed updates, communication lags, and team misalignment when additions, deletions, or reschedules occur.",
-    solution: "Combines Google Apps Script event diffing with a Make.com webhook and multi-path decision router, instantly firing targeted alerts across Gmail email, Slack team channels, and WhatsApp mobile messages.",
+    projectTypeNote: "Independent Practice Project",
+    shortDescription:
+      "Built an event-driven monitoring workflow pairing Google Apps Script with Make.com to detect spreadsheet calendar additions or deletions and dispatch instant alerts. By sending structured JSON webhook payloads through a four-branch router, the system notifies teams across Gmail, Slack, and WhatsApp Business Cloud without manual sheet checks.",
+    problemSolved:
+      "Teams tracking schedules inside shared spreadsheets cannot easily see when rows are quietly added or deleted, and standard sheet triggers do not automatically distinguish row removals or route alerts across multiple messaging channels.",
+    solution:
+      "Developed custom snapshot-comparison logic in Google Apps Script that detects additions and deletions, sends a structured JSON payload via HTTP POST to a Make.com Custom Webhook, and routes notifications across Gmail, Slack, and WhatsApp Business Cloud.",
     image: "/assets/aistudio/image_f82b950a.png",
-    imageAlt: "Make.com scenario diagram for Calendar Monitor and Alert system",
-    imageCaption: "Live Make.com Scenario: Custom Webhook listener → 4-Way Decision Router → Multi-channel Gmail, Slack & WhatsApp Business Cloud alerts",
-    tools: ["Make.com", "Google Sheets", "Google Apps Script", "Webhooks", "Gmail", "Slack", "WhatsApp Business Cloud"],
+    imageAlt:
+      "Make.com scenario diagram for Calendar Monitor and Alert system showing Custom Webhook, Router, Gmail, Slack, and WhatsApp Business Cloud",
+    imageCaption:
+      "Make.com Scenario: Custom Webhook → 4-Way Router (Deletion Alert, Addition Alert, WhatsApp routes) → Gmail, Slack & WhatsApp Business Cloud",
+    tools: [
+      "Make.com",
+      "Google Apps Script",
+      "Google Sheets",
+      "Webhooks",
+      "HTTP Requests",
+      "JSON",
+      "Gmail",
+      "Slack",
+      "WhatsApp Business Cloud"
+    ],
     workflowNodes: [
-      "Google Apps Script (onEdit / onChange state comparison)",
-      "Make.com Webhook (Custom webhook receiver)",
-      "Router (1st: Deletion Alert / 2nd: Addition Alert / 3rd & 4th: Priority alerts)",
-      "Gmail (Send email alert)",
-      "Slack (Send team message)",
-      "WhatsApp Business Cloud (Send instant mobile alert)"
+      "Google Apps Script (Snapshot state comparison & HTTP POST JSON)",
+      "Make.com Webhook (Custom webhook listener)",
+      "Router (4-branch alert filter)",
+      "Gmail (Send an email — Deletion & Addition routes)",
+      "Slack (Send a Message — Team channel notifications)",
+      "WhatsApp Business Cloud (Send a Message — Mobile alert branches)"
     ],
-    role: "Created the Google Apps Script state tracking algorithm, structured the JSON webhook payload format, configured the Make.com webhook endpoint, and mapped email, Slack, and WhatsApp alert templates.",
+    keyFeatures: [
+      "Custom Google Apps Script diffing logic that detects both added and deleted calendar rows",
+      "Real-time JSON payload delivery via HTTP POST to a Make.com Custom Webhook",
+      "Four-branch Make.com Router distinguishing Deletion Alert and Addition Alert events",
+      "Multi-channel alert delivery spanning Gmail emails, Slack channel posts, and WhatsApp Business Cloud routes"
+    ],
+    role:
+      "Wrote the Google Apps Script state-comparison script and HTTP POST webhook dispatcher, defined the JSON payload structure, configured the Make.com Custom Webhook and 4-branch Router filters, and connected Gmail, Slack, and WhatsApp Business Cloud modules.",
     challenges: [
-      "Detecting row additions versus deletions reliably in Google Sheets without polling overhead.",
-      "Formatting notification payloads cleanly across differing channel constraints (rich HTML for Gmail, message blocks for Slack, and direct templates for WhatsApp).",
-      "Handling rapid batch schedule changes without webhook throttling or alert spam."
-    ],
-    outcomes: [
-      "Instant multi-channel operational visibility when schedules are modified or entries deleted.",
-      "Direct delivery to field and office staff via their preferred channels (Gmail, Slack, and WhatsApp).",
-      "Robust execution pipeline verified with live execution traces in Make.com."
+      "Google Sheets edit triggers do not directly indicate when a row has been deleted, requiring snapshot comparison logic in Apps Script before sending the webhook.",
+      "Formatting alert content cleanly across three distinct channels (Gmail email bodies, Slack channel messages, and WhatsApp message templates).",
+      "Structuring filters so deletion events and addition events trigger only their matching notification paths."
     ],
     futureImprovements: [
-      "Add interactive Slack buttons to confirm or acknowledge schedule changes.",
-      "Implement a daily summary digest for minor non-critical time adjustments.",
-      "Add automated two-way response logging back into Google Sheets."
+      "Batch rapid consecutive spreadsheet edits into a single grouped digest payload.",
+      "Write webhook delivery timestamps to a dedicated audit log tab inside Google Sheets.",
+      "Finalize live WhatsApp Business Cloud template approval for production mobile alerts."
     ],
     caseStudyDetails: {
-      architectureSummary: "Hybrid event-driven architecture pairing Google Apps Script sheet-mutation triggers with a Make.com Custom Webhook and multi-path router to broadcast notifications via Gmail, Slack, and WhatsApp Business Cloud.",
-      triggerType: "Instant Webhook trigger fired by Google Apps Script",
+      overview:
+        "An independent event-driven automation combining custom Google Apps Script logic with Make.com multi-channel routing to keep operations teams informed whenever tracked schedule records change.",
+      architectureSummary:
+        "Google Apps Script monitors Google Sheets state changes, formats an event JSON payload, and posts it to a Make.com Custom Webhook that fans out alerts across Gmail, Slack, and WhatsApp Business Cloud.",
+      triggerType: "Instant Custom Webhook triggered via HTTP POST from Google Apps Script",
       dataFlow: [
-        "User or system updates, adds, or deletes an entry on the calendar sheet",
-        "Google Apps Script detects the change delta and dispatches a JSON payload to Make.com",
-        "Make.com Custom Webhook receives and validates the event data",
-        "Decision Router evaluates the action type (Addition Alert, Deletion Alert, or Priority Alert)",
-        "Branch 1 & 2: Dispatches formatted emails via Gmail and synchronized messages to Slack channels",
-        "Branch 3 & 4: Transmits instant mobile alert notifications via WhatsApp Business Cloud"
+        "A row is added to or removed from the monitored calendar Google Sheet.",
+        "Google Apps Script compares the current sheet snapshot against the previously stored snapshot to identify additions or deletions.",
+        "Apps Script constructs a JSON payload containing event metadata and sends an HTTP POST request to the Make.com Custom Webhook.",
+        "Make.com's Router evaluates the incoming event payload across four conditional routes.",
+        "Branches 1 and 2 route Deletion Alerts and Addition Alerts through Gmail (Send an email) followed by Slack (Send a Message).",
+        "Branches 3 and 4 route corresponding mobile notifications to WhatsApp Business Cloud (Send a Message)."
       ],
-      testedFunctionality: "Tested and validated with live execution in Make.com scenario diagram.",
-      notes: "Real-time multi-channel notification engine integrating email, team chat, and mobile messaging."
+      testedFunctionality:
+        "Configured and tested in Make.com with custom JSON webhook payloads across the Webhook, Router, Gmail, and Slack modules; WhatsApp Business Cloud modules are mapped in the scenario for mobile alert routing.",
+      outcomeValue:
+        "Demonstrates how custom Google Apps Script triggers and Make.com webhooks can bridge spreadsheet scheduling tools with real-time team alerts across email and messaging platforms."
     }
   },
   {
     id: "employee-onboarding",
-    title: "Employee & Client Onboarding Automation",
-    subtitle: "Intake form capture, buffered processing, and CRM board creation",
+    title: "Employee Onboarding Automation",
+    subtitle: "Webhook intake, HubSpot CRM contact & deal sync, and Slack/Gmail team notifications",
+    filterGroup: "Automation",
     category: "Business Process Automation",
     status: "In Progress",
-    shortDescription: "A workflow designed to streamline onboarding by processing pending records, dispatching intake notifications, and updating onboarding statuses across operations boards.",
-    problemSolved: "Manually preparing onboarding emails, gathering employee or client intake questionnaires, and manually creating operational tasks creates delays and administrative drag.",
-    solution: "An automated workflow that listens for incoming Typeform responses, inserts a deliberate buffer sleep to ensure payload completion, pulls the complete response dataset, and automatically provisions new task items on Monday.com.",
-    image: "/assets/aistudio/Screenshot_2026-10-22_102149_c2cce6a5.png",
-    imageAlt: "Make.com scenario diagram for Employee & Client Onboarding",
-    imageCaption: "Make.com Scenario: Typeform Watch Responses → Tools Sleep 4s buffer → Typeform List Responses → monday.com Create Item",
-    tools: ["Make.com", "Typeform", "monday.com", "Google Sheets", "Gmail"],
+    projectTypeNote: "In-Progress Practice Build",
+    shortDescription:
+      "Designed an employee onboarding workflow in Make.com that receives new-hire intake data via webhook, records employee details in HubSpot CRM, and triggers follow-up tasks alongside Slack and Gmail notifications. By connecting core operational tools into a single structured flow, it helps organizations keep employee records organized and automate repetitive onboarding steps.",
+    problemSolved:
+      "Bringing a new employee into an organization often involves manually entering contact details into a CRM or directory, creating follow-up onboarding tasks, notifying teammates in chat, and sending welcome emails—repetitive administrative steps that are prone to delays and missed handoffs.",
+    solution:
+      "Built a Make.com scenario triggered by a Custom Webhook that automatically creates or updates an employee contact in HubSpot CRM and splits execution via a Router to retrieve deal/pipeline records, create onboarding tasks in HubSpot CRM, announce the new hire in Slack, and send onboarding emails through Gmail.",
+    image: "/assets/aistudio/image_f0105e00.png",
+    imageAlt:
+      "Make.com scenario diagram for Employee Onboarding Automation showing Custom Webhook, HubSpot CRM, Router, Slack, and Gmail modules",
+    imageCaption:
+      "Make.com Scenario: Custom Webhook → HubSpot CRM (Create or Update a Contact) → Router → HubSpot Deal & Task / Slack & Gmail branches",
+    tools: ["Make.com", "Webhooks", "JSON", "HubSpot CRM", "Slack", "Gmail"],
     workflowNodes: [
-      "Typeform (Watch Responses)",
-      "Tools (Sleep 4s buffer)",
-      "Typeform (List Responses)",
-      "monday.com (Create an Item)",
-      "Planned: CRM Direct Sync",
-      "Planned: Automated Welcome Email"
+      "Webhook (Custom webhook listener)",
+      "HubSpot CRM (Create or Update a Contact)",
+      "Router (2-branch workflow split)",
+      "HubSpot CRM (Get a Deal → Create a Task)",
+      "Slack (Send a Message)",
+      "Gmail (Send an email)"
     ],
-    role: "Constructed the Make.com pipeline, implemented the timing buffer to prevent race conditions, and configured the field mapping between Typeform fields and Monday.com task columns.",
+    keyFeatures: [
+      "Instant Custom Webhook intake prepared to accept structured JSON new-hire payloads",
+      "HubSpot CRM Create or Update a Contact step to centralize employee records without duplicates",
+      "Parallel two-branch Router splitting CRM task creation from team and email communication",
+      "Automated HubSpot CRM follow-up task creation paired with Slack team alerts and Gmail onboarding emails"
+    ],
+    role:
+      "Designed the employee onboarding workflow architecture in Make.com, configured and tested the Custom Webhook trigger and HubSpot CRM contact upsert module, structured the two-branch Router flow, and mapped the HubSpot Deal/Task, Slack, and Gmail modules.",
     challenges: [
-      "Typeform webhook delivery can arrive before multipart form uploads finish processing; resolved by inserting a 4-second delay before retrieving complete response data.",
-      "Complex nested JSON structures within questionnaire submissions requiring precise data parsing.",
-      "Designing clean status handoffs so team members know when onboarding is underway versus awaiting verification."
-    ],
-    outcomes: [
-      "Eliminates manual copying of intake form data into project boards.",
-      "Guarantees every submission automatically spawns a tracked onboarding card.",
-      "Foundation in place for complete CRM and email sequence integration."
+      "Mapping incoming webhook JSON fields cleanly so HubSpot CRM updates existing records without creating duplicate contacts.",
+      "Handling missing or optional deal associations on the HubSpot CRM Get a Deal and Create a Task branch during active testing.",
+      "Coordinating internal Slack team announcements and external Gmail onboarding emails from the same intake event."
     ],
     futureImprovements: [
-      "Complete end-to-end integration with existing internal CRM system.",
-      "Trigger automated personalized welcome email sequences via Gmail.",
-      "Generate personalized employee / client onboarding documentation in Google Drive."
+      "Complete dynamic error handling and deal-association fallback logic on the HubSpot CRM task branch.",
+      "Finalize standardized templates for Slack onboarding announcements and Gmail welcome messages.",
+      "Add input validation checks before processing incomplete webhook submissions."
     ],
     caseStudyDetails: {
-      architectureSummary: "Pipeline capturing intake form completions, pausing for data consistency, querying full question/answer pairs, and generating structured tracking cards inside monday.com boards.",
-      triggerType: "Polling / Webhook trigger on Typeform (Watch Responses)",
+      overview:
+        "An in-progress employee onboarding automation scenario built in Make.com to help businesses organize new-hire intake, centralize contact and task tracking in HubSpot CRM, and coordinate team communication through Slack and Gmail.",
+      architectureSummary:
+        "Event-driven Make.com workflow triggered by a Custom Webhook that upserts a contact record in HubSpot CRM and branches through a Router to handle CRM deal/task creation alongside Slack and Gmail notifications.",
+      triggerType: "Instant Custom Webhook (HTTP JSON intake)",
       dataFlow: [
-        "Candidate or client submits onboarding questionnaire in Typeform",
-        "Make.com detects new submission event",
-        "4-second sleep buffer ensures media and form payloads are finalized",
-        "Make.com queries Typeform API for comprehensive response dataset",
-        "New item created on designated monday.com board with contact details and role",
-        "Next phase: CRM sync and automated welcome email dispatch"
+        "New employee onboarding details arrive at the Make.com Custom Webhook as a structured JSON payload.",
+        "HubSpot CRM (Create or Update a Contact) creates a new employee contact record or updates an existing match.",
+        "A Make.com Router splits execution into two coordinated branches.",
+        "On Branch 1, HubSpot CRM (Get a Deal) retrieves the associated record and triggers HubSpot CRM (Create a Task) to log onboarding follow-up work.",
+        "On Branch 2, Slack (Send a Message) notifies the team about the new employee, followed by Gmail (Send an email) to dispatch onboarding communication."
       ],
-      testedFunctionality: "Currently in progress / prototype. Core Make.com scenario with Typeform and monday.com modules configured; CRM integration phase actively underway.",
-      notes: "Unfinished workflow currently being integrated with production CRM systems."
+      testedFunctionality:
+        "In-progress build: Custom Webhook intake and HubSpot CRM contact creation/update have been executed and verified in Make.com; the downstream HubSpot CRM deal/task modules and Slack/Gmail notification actions are configured and undergoing final testing.",
+      outcomeValue:
+        "Shows how growing businesses can organize employee onboarding across HubSpot CRM, Slack, and Gmail—eliminating manual copy-pasting between intake forms, CRM tasks, and team notifications."
+    }
+  },
+  {
+    id: "google-tasks-kanban",
+    title: "Google Tasks Kanban",
+    subtitle: "Three-column React & TypeScript Kanban prototype structured for Google Tasks sync",
+    filterGroup: "Applications",
+    category: "Vibe-Coded Application",
+    status: "Prototype",
+    projectTypeNote: "Application Prototype",
+    hasInteractiveDemo: true,
+    shortDescription:
+      "Built a responsive three-column Kanban web application prototype using React, TypeScript, and Tailwind CSS to organize tasks across To Do, In Progress, and Finished lanes. Designed to address the lack of workflow visibility in flat task lists, it includes an interactive browser sandbox and a documented architecture for planned Google Tasks and Calendar synchronization.",
+    problemSolved:
+      "Flat to-do lists make it hard for individuals and small teams to see which tasks are waiting, actively in progress, or finished at a glance, slowing down daily prioritization.",
+    solution:
+      "Developed a clean Kanban interface using AI-assisted development with React, TypeScript, and Tailwind CSS—allowing users to create tasks with due dates, view live column counters, and move cards between workflow lanes directly in the browser.",
+    image: "/assets/aistudio/Screenshot_2026-10-22_103818_1d4d9a26.png",
+    imageAlt:
+      "Google Tasks Kanban application interface showing To Do, In Progress, and Finished columns",
+    imageCaption:
+      "Application Interface: Three-column Kanban board with To Do, In Progress, and Finished lanes, task cards, and due date badges",
+    tools: ["React", "TypeScript", "Tailwind CSS", "Lucide React"],
+    workflowNodes: [
+      "Three-Column Kanban UI (TO DO / IN PROGRESS / FINISHED)",
+      "React Client State (Task creation modal & lane movement controls)",
+      "Sync Architecture Drawer (Documented Google API blueprint)",
+      "Planned: Google OAuth 2.0 & Google Tasks API v1 Sync",
+      "Planned: Google Calendar Events API Due-Date Hook"
+    ],
+    keyFeatures: [
+      "Three-lane visual board (TO DO, IN PROGRESS, FINISHED) with live per-column task counters",
+      "Interactive Add Task modal supporting custom titles, descriptions, and scheduled date labels",
+      "Forward and backward card movement controls across workflow stages in local browser state",
+      "Embedded Sync Architecture drawer clearly distinguishing implemented UI behavior from planned Google APIs"
+    ],
+    role:
+      "Designed the Kanban board layout and task data model through AI-assisted development, built the interactive React and TypeScript prototype embedded in this portfolio, and documented the planned Google Tasks API v1 and Google Calendar API integration design.",
+    challenges: [
+      "Keeping the three-column board readable and balanced across both desktop and mobile viewports.",
+      "Designing client-side task state structures cleanly so future Google Tasks API fields can map without major refactoring.",
+      "Communicating clearly inside the UI which interactions run locally today versus which Google OAuth and Calendar features remain planned."
+    ],
+    futureImprovements: [
+      "Implement Google OAuth 2.0 authentication and live Google Tasks API v1 synchronization.",
+      "Connect due-date updates to the Google Calendar Events API.",
+      "Add drag-and-drop card reordering alongside the existing directional lane buttons."
+    ],
+    caseStudyDetails: {
+      overview:
+        "A lightweight productivity web application prototype built with React, TypeScript, and Tailwind CSS to visualize daily tasks on a Kanban board and outline a future integration path with Google Tasks and Google Calendar.",
+      architectureSummary:
+        "Client-side React single-page application managing task objects in browser state across three status lanes, paired with an interactive sandbox accessible directly inside this portfolio.",
+      triggerType: "Client-side interactive React UI (external Google API sync planned)",
+      dataFlow: [
+        "On load, React initializes sample task cards grouped across TO DO, IN PROGRESS, and FINISHED columns with live item counts.",
+        "Clicking Add Task opens a modal form that validates the title and appends a new task card to the TO DO column.",
+        "Clicking the forward or backward chevron buttons on a card updates its status in React state, immediately moving it between lanes.",
+        "Clicking Sync Architecture displays the planned Google Tasks API v1 and Google Calendar Events API synchronization blueprint."
+      ],
+      testedFunctionality:
+        "Working frontend prototype: task viewing, modal task creation, and directional lane movement work live in the embedded Interactive Demo. Drag-and-drop reordering, Google OAuth, and Google Tasks / Calendar API synchronization are planned features and are not yet implemented.",
+      outcomeValue:
+        "Demonstrates rapid UI prototyping with React and TypeScript and shows how lightweight internal tools can be structured cleanly before connecting live external APIs."
     }
   }
 ];
 
-export const VIBE_CODED_PROJECT: Project = {
-  id: "google-tasks-kanban",
-  title: "Google Tasks Kanban",
-  subtitle: "Visual task board designed for agile organization & productivity integration",
-  category: "Vibe-Coded Application",
-  status: "Prototype",
-  shortDescription: "A Kanban-style task management interface designed to make tasks easier to organize visually, with a focus on connecting task management to everyday productivity tools.",
-  problemSolved: "Default task lists are often linear, rigid, and disconnected from visual prioritization, making it hard to track active work versus backlog items.",
-  solution: "A responsive, modern Kanban interface organizing tasks across To Do, In Progress, and Done stages with drag-and-drop mechanics, priority flags, tag grouping, and an architectural foundation for Google Tasks and Google Calendar synchronization.",
-  image: "/assets/aistudio/Screenshot_2026-10-22_103818_1d4d9a26.png",
-  imageAlt: "Google Tasks Kanban application interface showing To Do, In Progress, and Finished columns",
-  imageCaption: "Actual Application Screenshot: Clean Kanban board with To Do (Launch Project, Write Documentation), In Progress, and Finished (Design UI Mockups)",
-  tools: ["React", "TypeScript", "Tailwind CSS", "Web APIs", "Google Tasks API (Planned)", "Google Calendar API (Planned)"],
-  workflowNodes: [
-    "Kanban Viewport (To Do / In Progress / Done)",
-    "Task State Store (Local state & persist)",
-    "Priority & Tag Classifier",
-    "Planned: Google OAuth 2.0 Client",
-    "Planned: Google Tasks Sync Engine",
-    "Planned: Google Calendar Date Hook"
-  ],
-  role: "Full-stack vibe-coded prototype developer. Designed UI layout, column state machines, drag-and-drop card interactions, and defined the API integration contracts.",
-  challenges: [
-    "Creating smooth card transitions without layout shifts across responsive columns.",
-    "Designing a clean data schema that easily maps to Google Tasks resource schemas.",
-    "Formulating two-way synchronization logic to handle conflicts between local card movement and remote calendar dates."
-  ],
-  outcomes: [
-    "Functional interactive prototype with instant task creation, column movement, and tagging.",
-    "Clean, intuitive visual hierarchy designed specifically for busy professionals.",
-    "Clear architectural separation between current working prototype features and upcoming API sync."
-  ],
-  futureImprovements: [
-    "Implement Google Tasks OAuth authorization for real-time task fetching.",
-    "Two-way Google Calendar synchronization so date updates in Kanban reflect on user calendar.",
-    "Subtask checklists and time tracking estimates."
-  ],
-  caseStudyDetails: {
-    architectureSummary: "Frontend React SPA with modular board state. Built to interface with Google Workspace productivity APIs through structured webhook and REST contracts.",
-    triggerType: "Client-side interactive UI with planned REST polling & webhook hooks",
-    dataFlow: [
-      "User creates or adjusts a task card in the Kanban interface",
-      "Local state updates with priority flags and tags",
-      "Planned integration: Sync engine maps card state to Google Tasks API",
-      "Planned integration: Date modifications trigger corresponding Google Calendar event updates"
-    ],
-    testedFunctionality: "Interactive prototype fully functioning in the browser. Google Tasks and Calendar sync are in design and planning phase.",
-    notes: "Distinguishes implemented UI features from planned Google Workspace API integrations."
-  }
-};
-
-export const SKILLS_DATA = [
+export const TECH_CATEGORIES: TechCategory[] = [
   {
-    category: "Automation & Integration",
-    skills: [
-      { name: "Make.com", detail: "Advanced scenario building, multi-branch routers, iterator/aggregator modules, error handling & execution debugging" },
-      { name: "Workflow Architecture", detail: "Designing resilient event pipelines, payload validation, retry routines, and modular steps" },
-      { name: "Webhooks & HTTP APIs", detail: "Configuring custom webhook endpoints, REST payloads, API authorization & JSON formatting" },
-      { name: "App Integrations", detail: "Bridging forms, databases, CRMs, and email systems into cohesive operational loops" }
+    id: "automation-integration",
+    title: "Automation & Integration",
+    subtitle: "Workflow platforms and integration fundamentals",
+    items: [
+      { name: "Make.com", level: "Hands-on", kind: "Automation", brandKey: "make" },
+      { name: "Webhooks", level: "Hands-on", kind: "Integration", brandKey: "webhook" },
+      { name: "APIs", level: "Hands-on", kind: "Integration", brandKey: "api" },
+      { name: "HTTP Requests", level: "Hands-on", kind: "Integration", brandKey: "http" },
+      { name: "JSON", level: "Hands-on", kind: "Data format", brandKey: "json" },
+      { name: "Google Apps Script", level: "Hands-on", kind: "Scripting", brandKey: "appsscript" }
     ]
   },
   {
-    category: "AI Integration",
-    skills: [
-      { name: "Google Gemini AI", detail: "Connecting Gemini models into workflow scenarios for automated content evaluation and extraction" },
-      { name: "OpenAI Integration", detail: "API orchestration for prompt-driven categorization, summary generation, and unstructured data parsing" },
-      { name: "Structured Prompt Design", detail: "Authoring bulletproof prompts with strict JSON outputs and deterministic classification criteria" },
-      { name: "AI Decision Routing", detail: "Passing model responses into downstream logic routers for automated conditional branches" }
+    id: "crm-business",
+    title: "CRM & Business Tools",
+    subtitle: "Data storage, intake forms, and operational tools",
+    items: [
+      { name: "HubSpot", level: "Exploring", kind: "CRM", brandKey: "hubspot" },
+      { name: "GoHighLevel", level: "Exploring", kind: "CRM", brandKey: "ghl" },
+      { name: "Google Sheets", level: "Hands-on", kind: "Data store", brandKey: "sheets" },
+      { name: "Airtable", level: "Hands-on", kind: "Database", brandKey: "airtable" },
+      { name: "Tally", level: "Familiar", kind: "Forms", brandKey: "tally" },
+      { name: "Gmail & Slack", level: "Hands-on", kind: "Messaging", brandKey: "gmail" }
     ]
   },
   {
-    category: "Productivity & Data",
-    skills: [
-      { name: "Google Sheets", detail: "Dynamic operational queues, formulas, data schemas, and event triggers" },
-      { name: "Google Apps Script", detail: "Custom JavaScript macros, onEdit triggers, state diffing, and outbound webhook dispatchers" },
-      { name: "Gmail Automation", detail: "Automated dynamic HTML email dispatch, operational alert routing, and template variables" },
-      { name: "Typeform & monday.com", detail: "Intake forms, question parsing, boards, items, and operational task tracking" }
+    id: "ai-platforms",
+    title: "AI Platforms",
+    subtitle: "Models and environments for workflows and prototyping",
+    items: [
+      { name: "Google Gemini", level: "Hands-on", kind: "AI model", brandKey: "gemini" },
+      { name: "Google AI Studio", level: "Hands-on", kind: "AI tool", brandKey: "aistudio" },
+      { name: "Claude", level: "Hands-on", kind: "AI platform", brandKey: "claude" }
     ]
   },
   {
-    category: "Application Development",
-    skills: [
-      { name: "JavaScript / TypeScript", detail: "Modern ES6+ syntax, asynchronous programming, typed interfaces, and clean modules" },
-      { name: "Vibe-Coded Prototyping", detail: "Rapid interactive application development with high visual quality and functional state" },
-      { name: "React & Tailwind CSS", detail: "Component architecture, hooks, responsive layouts, dark technical aesthetic styling" },
-      { name: "Web APIs & Architecture", detail: "RESTful integration patterns, state persistence, and responsive UI interaction design" }
+    id: "development",
+    title: "Development",
+    subtitle: "Frontend web fundamentals and version control",
+    items: [
+      { name: "JavaScript", level: "Hands-on", kind: "Language", brandKey: "js" },
+      { name: "HTML", level: "Hands-on", kind: "Markup", brandKey: "html" },
+      { name: "CSS", level: "Hands-on", kind: "Styling", brandKey: "css" },
+      { name: "React & TypeScript", level: "Hands-on", kind: "UI prototype", brandKey: "js" },
+      { name: "Git", level: "Familiar", kind: "Version control", brandKey: "git" },
+      { name: "GitHub", level: "Hands-on", kind: "Hosting", brandKey: "github" }
     ]
   }
 ];

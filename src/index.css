@@ -3,47 +3,52 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --color-charcoal: #1F2328;
-  --color-charcoal-dark: #15181C;
-  --color-charcoal-light: #282D34;
-  --color-charcoal-border: #333942;
+  --color-charcoal: #14171A;
+  --color-charcoal-surface: #1A1E23;
+  --color-charcoal-border: #2A3038;
   --color-vivid-orange: #FA5428;
   --color-vivid-orange-hover: #E1441B;
   --color-off-white: #F5F5F3;
-  --color-muted-gray: #B4BAC2;
+  --color-muted-gray: #9CA3AF;
 }
 
 html {
   font-family: var(--font-sans);
+  background-color: #14171A;
+  color: #F5F5F3;
 }
 
-/* Technical grid background pattern matching Codeforge inspiration */
-.bg-grid-pattern {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+/* Offset anchor scroll for fixed navbar */
+section[id] {
+  scroll-margin-top: 4.5rem;
 }
 
-.bg-grid-pattern-dense {
-  background-size: 20px 20px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* Custom scrollbar for technical code look */
+/* Minimal scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #15181C;
+  background: #14171A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333942;
+  background: #2D333B;
   border-radius: 3px;
 }
 

@@ -1,139 +1,198 @@
 import React, { useState } from 'react';
-import { AUTOMATION_PROJECTS, Project } from '../data/portfolioData';
-import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { FEATURED_PROJECTS, Project } from '../data/portfolioData';
+import { InteractiveKanban } from './InteractiveKanban';
+import { ArrowRight, Eye, Layout, Sparkles } from 'lucide-react';
 
 interface ProjectsSectionProps {
   onSelectProject: (project: Project) => void;
   onPreviewImage: (image: string, title: string) => void;
 }
 
+type FilterTab = 'All Projects' | 'Automation' | 'Applications';
+
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   onSelectProject,
   onPreviewImage
 }) => {
-  const [filter, setFilter] = useState<'All' | 'Completed' | 'In Progress'>('All');
+  const [filter, setFilter] = useState<FilterTab>('All Projects');
+  const [kanbanMode, setKanbanMode] = useState<'screenshot' | 'interactive'>('screenshot');
 
-  const filteredProjects = filter === 'All'
-    ? AUTOMATION_PROJECTS
-    : AUTOMATION_PROJECTS.filter(p => p.status === filter);
+  const filteredProjects = filter === 'All Projects'
+    ? FEATURED_PROJECTS
+    : FEATURED_PROJECTS.filter((p) => p.filterGroup === filter);
+
+  const filterTabs: { label: FilterTab; count: number }[] = [
+    { label: 'All Projects', count: FEATURED_PROJECTS.length },
+    { label: 'Automation', count: FEATURED_PROJECTS.filter((p) => p.filterGroup === 'Automation').length },
+    { label: 'Applications', count: FEATURED_PROJECTS.filter((p) => p.filterGroup === 'Applications').length },
+  ];
 
   return (
-    <section id="projects" className="py-20 lg:py-24 bg-[#1F2328] bg-grid-pattern relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
+    <section id="projects" className="py-20 lg:py-28 bg-[#14171A] border-t border-[#242931]">
+      <div className="max-w-5xl mx-auto px-5 sm:px-6 lg:px-8">
+
+        {/* Section Header & Filter Tabs */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <span className="text-xs font-mono font-medium tracking-widest text-[#FA5428] uppercase mb-2.5 block">
-              PORTFOLIO SHOWCASE
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Automation Projects
-            </h2>
-            <p className="mt-3 text-base text-[#B4BAC2] max-w-xl leading-relaxed">
-              Practical workflows designed to solve real operational problems. Tested scenarios with verified routing logic.
+            <p className="text-xs font-medium tracking-wider uppercase text-[#FA5428] mb-2">
+              Selected Work
             </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#F5F5F3] tracking-tight text-balance">
+              Projects &amp; Automation Systems
+            </h2>
           </div>
 
-          {/* Filter Segmented Control */}
-          <div className="flex items-center gap-1.5 p-1 bg-[#15181C] border border-[#333942] rounded-lg shrink-0">
-            {(['All', 'Completed', 'In Progress'] as const).map(tab => (
+          <div
+            role="tablist"
+            aria-label="Filter projects by category"
+            className="inline-flex items-center gap-1 p-1 bg-[#1A1E23] border border-[#2A3038] rounded-lg self-start md:self-auto"
+          >
+            {filterTabs.map((tab) => (
               <button
-                key={tab}
-                onClick={() => setFilter(tab)}
-                className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
-                  filter === tab
-                    ? 'bg-[#FA5428] text-white font-semibold shadow-sm'
-                    : 'text-[#B4BAC2] hover:text-white'
+                key={tab.label}
+                type="button"
+                role="tab"
+                aria-selected={filter === tab.label}
+                onClick={() => setFilter(tab.label)}
+                className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5428] ${
+                  filter === tab.label
+                    ? 'bg-[#FA5428] text-white'
+                    : 'text-[#9CA3AF] hover:text-[#F5F5F3]'
                 }`}
               >
-                {tab === 'All' ? 'All (3)' : tab}
+                {tab.label} <span className="opacity-75 tabular-nums">({tab.count})</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Project Cards */}
-        <div className="space-y-10">
-          {filteredProjects.map((project) => (
-            <article
-              key={project.id}
-              className="bg-[#15181C] border border-[#333942] hover:border-[#FA5428]/50 rounded-xl overflow-hidden shadow-lg transition-colors"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
-                
-                {/* Visual Area (Actual Screenshot) */}
-                <div
-                  onClick={() => onSelectProject(project)}
-                  className="lg:col-span-6 bg-[#111317] border-b lg:border-b-0 lg:border-r border-[#333942] p-4 sm:p-6 flex items-center justify-center cursor-pointer group"
-                >
-                  <img
-                    src={project.image}
-                    alt={project.imageAlt}
-                    referrerPolicy="no-referrer"
-                    className="max-h-[300px] w-auto max-w-full object-contain rounded-lg border border-[#2D333B] transition-transform duration-200 group-hover:scale-[1.01]"
-                  />
-                </div>
+        {/* Clean Project Rows */}
+        <div className="space-y-8">
+          {filteredProjects.map((project) => {
+            const isInteractiveActive = project.hasInteractiveDemo && kanbanMode === 'interactive';
 
-                {/* Brief Content Area */}
-                <div className="lg:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
-                  {/* Category & Status */}
-                  <div className="flex items-center gap-3 mb-2.5">
-                    <span className="text-xs font-mono font-medium text-[#FA5428] uppercase tracking-wider">
-                      {project.category}
-                    </span>
-                    <span className="text-[#6E7681] text-xs">·</span>
-                    <span className={`text-xs font-mono px-2 py-0.5 rounded font-medium ${
-                      project.status === 'Completed'
-                        ? 'bg-emerald-500/10 text-emerald-400'
-                        : 'bg-amber-500/10 text-amber-300'
-                    }`}>
-                      {project.status}
-                    </span>
+            return (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.12 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-[#181B20] border border-[#262C34] hover:border-[#37404C] rounded-xl overflow-hidden transition-colors"
+              >
+                <div className={isInteractiveActive ? 'flex flex-col' : 'grid grid-cols-1 lg:grid-cols-12 items-stretch'}>
+
+                  {/* Thumbnail / Interactive Area */}
+                  <div className={isInteractiveActive ? 'bg-[#121518] border-b border-[#262C34] p-4 sm:p-6' : 'lg:col-span-6 bg-[#121518] border-b lg:border-b-0 lg:border-r border-[#262C34] p-4 sm:p-5 flex flex-col justify-center'}>
+                    {project.hasInteractiveDemo && (
+                      <div className="flex items-center justify-between gap-3 mb-3.5 pb-3 border-b border-[#242931]">
+                        <span className="text-xs text-[#9CA3AF]">
+                          {kanbanMode === 'interactive' ? 'Interactive Prototype' : 'Interface Preview'}
+                        </span>
+                        <div className="flex items-center gap-1 p-0.5 bg-[#181B20] border border-[#2A3038] rounded-md">
+                          <button
+                            type="button"
+                            onClick={() => setKanbanMode('screenshot')}
+                            className={`px-2.5 py-1 text-xs font-medium rounded transition-colors flex items-center gap-1.5 whitespace-nowrap ${
+                              kanbanMode === 'screenshot'
+                                ? 'bg-[#FA5428] text-white'
+                                : 'text-[#9CA3AF] hover:text-[#F5F5F3]'
+                            }`}
+                          >
+                            <Layout className="w-3.5 h-3.5" aria-hidden="true" />
+                            <span>Screenshot</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setKanbanMode('interactive')}
+                            className={`px-2.5 py-1 text-xs font-medium rounded transition-colors flex items-center gap-1.5 whitespace-nowrap ${
+                              kanbanMode === 'interactive'
+                                ? 'bg-[#FA5428] text-white'
+                                : 'text-[#9CA3AF] hover:text-[#F5F5F3]'
+                            }`}
+                          >
+                            <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                            <span>Live Demo</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {isInteractiveActive ? (
+                      <InteractiveKanban />
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => onPreviewImage(project.image, project.title)}
+                        className="relative w-full flex items-center justify-center group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5428] rounded-lg overflow-hidden"
+                        aria-label={`Inspect ${project.title} screenshot`}
+                      >
+                        <img
+                          src={project.image}
+                          alt={project.imageAlt}
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                          className="max-h-[270px] w-auto max-w-full object-contain rounded-md transition-transform duration-200 group-hover:scale-[1.01]"
+                        />
+                        <span className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded bg-[#14171A]/90 border border-[#2A3038] text-xs text-[#F5F5F3] opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1.5">
+                          <Eye className="w-3.5 h-3.5 text-[#FA5428]" aria-hidden="true" />
+                          <span>Zoom</span>
+                        </span>
+                      </button>
+                    )}
                   </div>
 
-                  {/* Title */}
-                  <h3
-                    onClick={() => onSelectProject(project)}
-                    className="text-2xl font-bold text-white tracking-tight mb-3 hover:text-[#FA5428] transition-colors cursor-pointer"
-                  >
-                    {project.title}
-                  </h3>
+                  {/* Minimalist Project Summary */}
+                  <div className={isInteractiveActive ? 'p-6 sm:p-8 flex flex-col justify-between gap-6 md:flex-row md:items-end' : 'lg:col-span-6 p-6 sm:p-8 flex flex-col justify-center'}>
+                    <div className={isInteractiveActive ? 'max-w-2xl' : ''}>
+                      <p className="text-xs font-medium text-[#9CA3AF] mb-2">
+                        <span className="text-[#FA5428]">{project.category}</span>
+                        <span aria-hidden="true"> · </span>
+                        <span>{project.status}</span>
+                      </p>
 
-                  {/* Concise Description */}
-                  <p className="text-sm sm:text-base text-[#B4BAC2] leading-relaxed mb-6">
-                    {project.shortDescription}
-                  </p>
-
-                  {/* Relevant Technologies */}
-                  <div className="mb-7">
-                    <div className="flex flex-wrap gap-2">
-                      {project.tools.map(tool => (
-                        <span
-                          key={tool}
-                          className="text-xs font-mono px-2.5 py-1 rounded bg-[#1C2027] text-[#D2D9E1] border border-[#2F3540]"
+                      <h3 className="text-xl sm:text-2xl font-semibold text-[#F5F5F3] tracking-tight mb-3">
+                        <button
+                          type="button"
+                          onClick={() => onSelectProject(project)}
+                          className="text-left hover:text-[#FA5428] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5428] rounded"
                         >
-                          {tool}
-                        </span>
-                      ))}
+                          {project.title}
+                        </button>
+                      </h3>
+
+                      <p className="text-sm sm:text-base text-[#A1A8B3] leading-relaxed mb-6">
+                        {project.shortDescription}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-4 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => onSelectProject(project)}
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-[#FA5428] hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5428] rounded"
+                      >
+                        <span>View Case Study</span>
+                        <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </button>
+
+                      {project.hasInteractiveDemo && (
+                        <button
+                          type="button"
+                          onClick={() => setKanbanMode(kanbanMode === 'screenshot' ? 'interactive' : 'screenshot')}
+                          className="text-sm font-medium text-[#9CA3AF] hover:text-[#F5F5F3] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FA5428] rounded"
+                        >
+                          {kanbanMode === 'screenshot' ? 'Try Interactive Demo' : 'Show Screenshot'}
+                        </button>
+                      )}
                     </div>
                   </div>
 
-                  {/* Single Clear Action */}
-                  <div>
-                    <button
-                      onClick={() => onSelectProject(project)}
-                      className="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-medium text-white bg-[#FA5428] hover:bg-[#E1441B] rounded-lg transition-colors shadow-sm"
-                    >
-                      <span>View Case Study</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </button>
-                  </div>
                 </div>
-
-              </div>
-            </article>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
 
       </div>
